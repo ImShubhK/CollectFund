@@ -1,6 +1,7 @@
 import React,{useState} from'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {CustomButton} from './'
+import { useStateContext } from '../context';
 import {logo,menu,search,thirdweb} from '../assets'
 import {navlinks} from '../constants'
 const Navbar = () => {
@@ -8,7 +9,7 @@ const Navbar = () => {
     const [isActive, setIsActive]=useState('dashboard')
      const[toogleDrawer ,setToogleDrawer] =useState('false')
 
-      const address = '0xabcufqu55451febjq4'
+      const{connect,address} = useStateContext();
 
   return (
     <div className='flex md:flex-row flex-col-reverse justify-between mb-[35px]
@@ -26,10 +27,11 @@ const Navbar = () => {
               btnType="button"
               title={address ? 'create a campaign' :'Connect'}
               styles ={address ? 'bg-[#1dc071]' : 'bg-[#8c6dfd]'}
-              handleClick={()=>{
-                if(address) navigate('create-campaign')
-                else 'connect()'
-              }}
+              // handleClick={()=>{
+              //   if(address) navigate('create-campaign')
+              //   else connect()
+              // }}
+              handleClick={() => { if (address) navigate("create-campaign"); else connect(); }}
               />
               <Link to ="/profile">
                 <div className='w-[52px] h-[52px] rounded-full
@@ -43,7 +45,7 @@ const Navbar = () => {
        <div className='sm:hidden flex justify-between items-center relative'>
        <div className='w-[40px] h-[40px] rounded-[10px]
                 bg-[#2c2f32] flex justify-center items-center cursor-pointer'>
-                    <img src={thirdweb} alt='user' className='w-[60%] h-[60%]
+                    <img src={logo} alt='user' className='w-[60%] h-[60%]
                     object-contain'/>
                 </div>
                 <img 
@@ -85,8 +87,8 @@ const Navbar = () => {
               title={address ? 'create a campaign' :'Connect'}
               styles ={address ? 'bg-[#1dc071]' : 'bg-[#8c6dfd]'}
               handleClick={()=>{
-                if(address) navigate("/create-campaign")
-                else 'connect()'
+                if(address) navigate('create-campaign')
+                else connect();
               }}
               />
                 </div>
